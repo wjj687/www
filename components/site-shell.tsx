@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { CatalogDrawer } from "@/components/catalog-drawer";
+import { CatalogDrawerLoader } from "@/components/catalog-drawer-loader";
 import { poems } from "@/data/poems";
 
 export function SiteShell({
@@ -11,7 +11,7 @@ export function SiteShell({
 }) {
   return (
     <div className="relative overflow-hidden">
-      <CatalogDrawer poems={poems} currentPoemId={currentPoemId} />
+      <CatalogDrawerLoader poems={poems} currentPoemId={currentPoemId} />
 
       <div
         aria-hidden="true"

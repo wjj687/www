@@ -1,8 +1,19 @@
 @import "tailwindcss";
 
 @theme {
-  --font-song: var(--font-serif);
-  --font-ink: var(--font-display);
+  --font-song:
+    "Noto Serif SC",
+    "Source Han Serif SC",
+    "Songti SC",
+    "STSong",
+    "SimSun",
+    serif;
+  --font-ink:
+    "STKaiti",
+    "Kaiti SC",
+    "KaiTi",
+    "DFKai-SB",
+    cursive;
 
   --color-paper: #f7f1e3;
   --color-ink: #31261d;
@@ -58,6 +69,8 @@
       linear-gradient(180deg, #f9f4e8 0%, #f5eedf 45%, #efe5d2 100%);
     color: var(--color-ink);
     font-family: var(--font-song), serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   a {
