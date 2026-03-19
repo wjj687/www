@@ -1,0 +1,156 @@
+@import "tailwindcss";
+
+@theme {
+  --font-song: var(--font-serif);
+  --font-ink: var(--font-display);
+
+  --color-paper: #f7f1e3;
+  --color-ink: #31261d;
+  --color-ink-soft: #6a5848;
+  --color-line: #cdbfa7;
+  --color-accent: #8b6f47;
+
+  --shadow-panel: 0 16px 40px rgba(89, 66, 42, 0.12);
+  --shadow-ink: 0 10px 24px rgba(89, 66, 42, 0.08);
+
+  --animate-fade-rise: fade-rise 0.7s ease-out;
+  --animate-brush: brush 14s linear infinite;
+
+  @keyframes fade-rise {
+    from {
+      opacity: 0;
+      transform: translateY(18px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes brush {
+    from {
+      transform: translate3d(-2%, 0, 0);
+    }
+    50% {
+      transform: translate3d(2%, -1%, 0);
+    }
+    to {
+      transform: translate3d(-2%, 0, 0);
+    }
+  }
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background: var(--color-paper);
+    color: var(--color-ink);
+  }
+
+  body {
+    min-height: 100dvh;
+    background:
+      radial-gradient(circle at top left, rgba(139, 111, 71, 0.12), transparent 32%),
+      radial-gradient(circle at right 20%, rgba(205, 191, 167, 0.24), transparent 24%),
+      linear-gradient(180deg, #f9f4e8 0%, #f5eedf 45%, #efe5d2 100%);
+    color: var(--color-ink);
+    font-family: var(--font-song), serif;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  button,
+  a {
+    transition:
+      color 180ms ease,
+      border-color 180ms ease,
+      background-color 180ms ease,
+      transform 180ms ease;
+  }
+}
+
+@utility paper-panel {
+  background:
+    linear-gradient(180deg, rgba(255, 255, 255, 0.38), rgba(255, 255, 255, 0.18)),
+    var(--color-paper);
+  border: 1px solid color-mix(in srgb, var(--color-line) 78%, white);
+  box-shadow: var(--shadow-panel);
+}
+
+@utility section-title {
+  font-family: var(--font-song), serif;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+@utility focus-ink {
+  &:focus-visible {
+    outline: 2px solid rgba(139, 111, 71, 0.7);
+    outline-offset: 3px;
+  }
+}
+
+@layer utilities {
+  .ink-frame {
+    position: relative;
+  }
+
+  .ink-frame::before {
+    content: "";
+    position: absolute;
+    inset: 14px;
+    border: 1px solid rgba(139, 111, 71, 0.28);
+    pointer-events: none;
+  }
+
+  .catalog-glyph {
+    position: relative;
+    display: grid;
+    grid-template-columns: 10px 1fr;
+    align-items: center;
+    column-gap: 8px;
+    width: 28px;
+    height: 24px;
+  }
+
+  .catalog-glyph span,
+  .catalog-glyph i {
+    display: block;
+  }
+
+  .catalog-glyph span {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: var(--color-accent);
+    justify-self: center;
+  }
+
+  .catalog-glyph i {
+    height: 1px;
+    width: 14px;
+    background: var(--color-accent);
+    justify-self: stretch;
+  }
+
+  .catalog-glyph span:nth-of-type(1),
+  .catalog-glyph i:nth-of-type(1) {
+    align-self: start;
+  }
+
+  .catalog-glyph span:nth-of-type(2),
+  .catalog-glyph i:nth-of-type(2) {
+    align-self: center;
+  }
+
+  .catalog-glyph span:nth-of-type(3),
+  .catalog-glyph i:nth-of-type(3) {
+    align-self: end;
+  }
+}
