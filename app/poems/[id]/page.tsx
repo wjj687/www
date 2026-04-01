@@ -17,7 +17,9 @@ export default async function PoemPage({
 
   return (
     <SiteShell currentPoemId={poem.id}>
-      <PoemSheet poem={poem} />
+      <div className="route-ripple-enter w-full max-w-3xl">
+        <PoemSheet poem={poem} />
+      </div>
     </SiteShell>
   );
 }

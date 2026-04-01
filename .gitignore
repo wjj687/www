@@ -7,4 +7,6 @@ preview.log
 npm-debug.log*
 
 temp_*/
+.tmp/
+.tmp_pdf_pages/
 *.tsbuildinfo
