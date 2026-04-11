@@ -1,6 +1,14 @@
 import { notFound } from "next/navigation";
 import { InterpretationView } from "@/components/interpretation-view";
-import { getPoemById } from "@/data/poems";
+import { getPoemById, poems } from "@/data/poems";
+
+export function generateStaticParams() {
+  return poems.map((poem) => ({
+    id: poem.id
+  }));
+}
+
+export const dynamicParams = false;
 
 export default async function PoemInterpretationPage({
   params

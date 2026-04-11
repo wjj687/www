@@ -1,9 +1,33 @@
-import type { Metadata } from "next";
+﻿import type { Metadata, Viewport } from "next";
+import { PwaRegister } from "@/components/pwa-register";
 import "./globals.css";
 
 export const metadata: Metadata = {
   title: "诗经",
-  description: "古典、淡雅、简洁的《诗经》阅读原型。"
+  description: "古典、雅致、适合手机阅读的《诗经》应用。",
+  applicationName: "诗经",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "诗经"
+  },
+  formatDetection: {
+    telephone: false
+  },
+  icons: {
+    icon: [
+      { url: "/icons/icon-any.svg", type: "image/svg+xml" },
+      { url: "/icons/icon-maskable.svg", type: "image/svg+xml", rel: "mask-icon" }
+    ],
+    apple: [{ url: "/icons/icon-any.svg", type: "image/svg+xml" }]
+  }
+};
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  viewportFit: "cover",
+  themeColor: "#f6f0e2"
 };
 
 const backgroundImage = "url('/magnolia-bg.png')";
@@ -18,6 +42,7 @@ export default function RootLayout({
   return (
     <html lang="zh-CN" suppressHydrationWarning>
       <body suppressHydrationWarning>
+        <PwaRegister />
         <div
           aria-hidden="true"
           suppressHydrationWarning

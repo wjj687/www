@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useRouter } from "next/navigation";
 import { startTransition, useState } from "react";
@@ -129,7 +129,8 @@ export function FeatureMenu({ currentPoemId }: { currentPoemId?: string }) {
       return;
     }
 
-    openRoute(`/poems/${currentPoemId}/appreciation`);
+    setOpen(false);
+    window.location.assign(`/poems/${currentPoemId}/appreciation?fresh=${Date.now()}`);
   }
 
   function handleAiAnalysisOpen() {
@@ -192,11 +193,11 @@ export function FeatureMenu({ currentPoemId }: { currentPoemId?: string }) {
                     }
                   : isInterpretation
                     ? handleInterpretationOpen
-                  : isAppreciation
-                    ? handleAppreciationOpen
-                    : isAiAnalysis
-                      ? handleAiAnalysisOpen
-                      : undefined;
+                    : isAppreciation
+                      ? handleAppreciationOpen
+                      : isAiAnalysis
+                        ? handleAiAnalysisOpen
+                        : undefined;
           const pressed = isAnnotation
             ? showAnnotation
             : isPhonetic

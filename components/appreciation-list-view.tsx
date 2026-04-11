@@ -1,11 +1,9 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { Poem } from "@/data/poems";
-import type { PoemAppreciationEntry } from "@/data/appreciations";
+import type { PoemAppreciationEntry } from "@/data/appreciations-types";
 
 function buildSourceLine(entry: PoemAppreciationEntry) {
-  return [entry.source.work, entry.source.year]
-    .filter(Boolean)
-    .join(" · ");
+  return [entry.source.work, entry.source.year].filter(Boolean).join(" · ");
 }
 
 export function AppreciationListView({

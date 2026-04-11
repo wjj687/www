@@ -1,7 +1,19 @@
 import { notFound } from "next/navigation";
 import { AppreciationArticleView } from "@/components/appreciation-article-view";
-import { getAppreciationById } from "@/data/appreciations";
-import { getPoemById } from "@/data/poems";
+import { getAllAppreciations, getAppreciationById } from "@/data/appreciations";
+import { getPoemById, poems } from "@/data/poems";
+
+export function generateStaticParams() {
+  const poemIds = new Set(poems.map((poem) => poem.id));
+  return getAllAppreciations()
+    .filter((entry) => poemIds.has(entry.poemId))
+    .map((entry) => ({
+      id: entry.poemId,
+      entryId: entry.id
+    }));
+}
+
+export const dynamicParams = false;
 
 export default async function PoemAppreciationEntryPage({
   params

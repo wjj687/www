@@ -1,7 +1,15 @@
 import { notFound } from "next/navigation";
 import { PoemSheet } from "@/components/poem-sheet";
 import { SiteShell } from "@/components/site-shell";
-import { getPoemById } from "@/data/poems";
+import { getPoemById, poems } from "@/data/poems";
+
+export function generateStaticParams() {
+  return poems.map((poem) => ({
+    id: poem.id
+  }));
+}
+
+export const dynamicParams = false;
 
 export default async function PoemPage({
   params

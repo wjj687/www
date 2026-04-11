@@ -1,6 +1,6 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import type { Poem } from "@/data/poems";
-import type { PoemAppreciationEntry } from "@/data/appreciations";
+import type { PoemAppreciationEntry } from "@/data/appreciations-types";
 
 export function AppreciationArticleView({
   poem,

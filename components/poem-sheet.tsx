@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { Fragment } from "react";
 import { useReadingControls } from "@/components/reading-controls";
@@ -15,6 +15,9 @@ type AnnotationRange = {
   end: number;
   number: number;
 };
+
+const PUNCTUATION_RE = /^[\p{P}\p{S}]$/u;
+const PINYIN_SEPARATOR_RE = /[\p{P}\p{S}]/gu;
 
 function buildAnnotationRanges(
   line: string,
@@ -52,13 +55,36 @@ function expandPhoneticSegments(
 
   lineSegments.forEach((segment) => {
     const chars = Array.from(segment.text);
-    const syllables = segment.pinyin?.trim().split(/\s+/).filter(Boolean) ?? [];
+    const syllables =
+      segment.pinyin
+        ?.replace(PINYIN_SEPARATOR_RE, " ")
+        .trim()
+        .split(/\s+/)
+        .filter(Boolean) ?? [];
     const canSplitByChar = syllables.length === chars.length;
+    const assignableIndexes = chars.reduce<number[]>((indexes, char, charIndex) => {
+      if (!PUNCTUATION_RE.test(char)) {
+        indexes.push(charIndex);
+      }
+      return indexes;
+    }, []);
+    const canSplitIgnoringPunctuation = syllables.length === assignableIndexes.length;
+    const syllablesByIndex = new Map<number, string>();
+
+    if (canSplitByChar) {
+      chars.forEach((_, charIndex) => {
+        syllablesByIndex.set(charIndex, syllables[charIndex]);
+      });
+    } else if (canSplitIgnoringPunctuation) {
+      assignableIndexes.forEach((charIndex, syllableIndex) => {
+        syllablesByIndex.set(charIndex, syllables[syllableIndex]);
+      });
+    }
 
     chars.forEach((char, charIndex) => {
       units.push({
         char,
-        pinyin: canSplitByChar ? syllables[charIndex] : undefined,
+        pinyin: syllablesByIndex.get(charIndex),
         index: cursor
       });
       cursor += 1;
@@ -133,7 +159,7 @@ function renderPhoneticLine(
   return units.map((unit) => {
     const markerNumber = markersByIndex.get(unit.index);
     const highlighted = highlightedIndexes.has(unit.index);
-    const isPunctuation = /^[，。、“”！？；：、]$/.test(unit.char);
+    const isPunctuation = PUNCTUATION_RE.test(unit.char);
 
     return (
       <span
@@ -249,3 +275,4 @@ export function PoemSheet({ poem }: { poem: Poem }) {
     </article>
   );
 }
+

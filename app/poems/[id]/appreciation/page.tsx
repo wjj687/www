@@ -1,7 +1,15 @@
 import { notFound } from "next/navigation";
 import { AppreciationListView } from "@/components/appreciation-list-view";
 import { getAppreciationsByPoemId } from "@/data/appreciations";
-import { getPoemById } from "@/data/poems";
+import { getPoemById, poems } from "@/data/poems";
+
+export function generateStaticParams() {
+  return poems.map((poem) => ({
+    id: poem.id
+  }));
+}
+
+export const dynamicParams = false;
 
 export default async function PoemAppreciationPage({
   params

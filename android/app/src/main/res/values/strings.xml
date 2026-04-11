@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">&#35799;&#32463;</string>
+    <string name="title_activity_main">&#35799;&#32463;</string>
+    <string name="package_name">com.wjj687.shijing</string>
+    <string name="custom_url_scheme">com.wjj687.shijing</string>
+</resources>

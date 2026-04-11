@@ -1,7 +1,15 @@
 import { notFound } from "next/navigation";
 import { AiAnalysisView } from "@/components/ai-analysis-view";
 import { getAiAnalysisByPoemId } from "@/data/ai-analysis";
-import { getPoemById } from "@/data/poems";
+import { getPoemById, poems } from "@/data/poems";
+
+export function generateStaticParams() {
+  return poems.map((poem) => ({
+    id: poem.id
+  }));
+}
+
+export const dynamicParams = false;
 
 export default async function PoemAiAnalysisPage({
   params

@@ -1,4 +1,4 @@
-import Link from "next/link";
+﻿import Link from "next/link";
 import { CatalogDrawerLoader } from "@/components/catalog-drawer-loader";
 import { FeatureMenu } from "@/components/feature-menu";
 import { ReadingControlsProvider } from "@/components/reading-controls";
